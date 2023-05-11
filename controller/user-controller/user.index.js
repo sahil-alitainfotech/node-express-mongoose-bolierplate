@@ -1,5 +1,5 @@
-const { addUsers } = require("./user.controller");
+const { register } = require("./user.controller");
 
-const userController = { addUsers }
+const userController = { register }
 
 module.exports = { userController };

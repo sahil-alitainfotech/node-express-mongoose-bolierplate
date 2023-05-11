@@ -1,5 +1,9 @@
 const bcrypt = require("bcrypt");
+const nodemailer = require('nodemailer')
 const saltRounds = process.env.SALT_ROUNDS;
+
+
+// hash password
 
 const passwordHash = (password) => {
     return new Promise((resolve, reject) => {
@@ -12,6 +16,8 @@ const passwordHash = (password) => {
     });
 };
 
+// compare password 
+
 const comparePasswordHash = (password, hash) => {
     return new Promise((resolve) => {
         bcrypt.compare(password, hash).then((isValid) => {
@@ -23,5 +29,20 @@ const comparePasswordHash = (password, hash) => {
     });
 };
 
+// mail transporter
 
-module.exports = { passwordHash, comparePasswordHash }
+const transporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    service: process.env.SERVICE,
+    port: 465,
+    secure: true,
+    auth: {
+        user: process.env.USER_EMAIL,
+        pass: process.env.USER_PASSWORD,
+    },
+});
+
+
+
+
+module.exports = { passwordHash, comparePasswordHash, transporter }

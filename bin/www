@@ -3,7 +3,8 @@
 /**
  * Module dependencies.
  */
-require('../config/database')
+
+require('../connection')
 var app = require('../app');
 var debug = require('debug')('basic:server');
 var http = require('http');
