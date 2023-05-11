@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const userSchema = new mongoose.Schema(
+const userSchema = mongoose.Schema(
     {
         first_name: {
             type: String,
@@ -20,8 +20,33 @@ const userSchema = new mongoose.Schema(
         password: {
             type: String,
             max: 255,
-            default: null,
             required: true
+        },
+        token: {
+            type: String,
+            max: 500,
+            default: null,
+            required: false
+        },
+        reset_password_token: {
+            type: String,
+            max: 500,
+            default: null,
+            required: false,
+        },
+        reset_password_expiry_time: {
+            type: Date,
+            required: false,
+        },
+        created_by: {
+            type: String,
+            default: null,
+            required: false,
+        },
+        updated_by: {
+            type: String,
+            default: null,
+            required: false,
         },
     },
     {

@@ -4,5 +4,4 @@ const userIndex = express.Router();
 
 userIndex.use("/user", userRouter );
 
-
 module.exports = { userIndex };

@@ -1,7 +1,5 @@
 module.exports = {
-  TRUE: true,
-  FALSE: false,
-  NULL: null,
+
   AUTH_USER_DETAILS: "x-auth-user-details",
   AUTH_BRAND_DETAILS: "x-auth-brands-details",
 
