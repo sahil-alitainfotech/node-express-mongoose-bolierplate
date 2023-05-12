@@ -1,14 +1,15 @@
 const { checkSchema } = require("express-validator");
 const { AUTH_MESSAGES } = require("../controller-messages/auth.messages");
+const {t} = require("../helpers/i18n")
 
 const forgotPasswordValidationRules = () => {
   return checkSchema({
     email: {
       notEmpty: {
-        errorMessage: AUTH_MESSAGES.EMAIL_ERROR_EMPTY,
+        errorMessage: t("EMAIL_ERROR_EMPTY","en"),
       },
       isEmail: {
-        errorMessage: AUTH_MESSAGES.EMAIL_ERROR_INVALID,
+        errorMessage: t("EMAIL_ERROR_INVALID","en"),
       },
     },
   });

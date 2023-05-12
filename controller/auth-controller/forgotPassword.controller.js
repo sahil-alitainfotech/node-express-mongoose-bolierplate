@@ -9,7 +9,7 @@ const { USER_MESSAGES } = require("../../controller-messages/user.messages");
 const User = require("../../schema/user.schema");
 const authService = require("../../services/auth.service");
 const { addResetPasswordToken } = require("../user-controller/user.controller");
-
+const { t } = require("../../helpers/i18n")
 // forgot password
 
 const forgotPassword = async (req, res) => {
@@ -22,7 +22,7 @@ const forgotPassword = async (req, res) => {
             await addResetPasswordToken(token, email);
             const responsePayload = {
                 status: RESPONSE_PAYLOAD_STATUS_SUCCESS,
-                message: AUTH_MESSAGES.EMAIL_SENT,
+                message: req.t("EMAIL_SENT"),
                 data: token,
                 error: null,
             };
@@ -33,7 +33,7 @@ const forgotPassword = async (req, res) => {
                 status: RESPONSE_PAYLOAD_STATUS_ERROR,
                 message: null,
                 data: null,
-                error: USER_MESSAGES.USERS_NOT_FOUND,
+                error: req.t("USERS_NOT_FOUND"),
             };
             return res.status(RESPONSE_STATUS_CODE_NOT_FOUND).json(responsePayload);
         }

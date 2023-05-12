@@ -3,12 +3,14 @@ const { RESPONSE_PAYLOAD_STATUS_SUCCESS,
     RESPONSE_PAYLOAD_STATUS_ERROR,
     RESPONSE_STATUS_CODE_NOT_FOUND,
     RESPONSE_STATUS_MESSAGE_INTERNAL_SERVER_ERROR,
-    RESPONSE_STATUS_CODE_INTERNAL_SERVER_ERROR } = require("../../constants/global.constants")
+    RESPONSE_STATUS_CODE_INTERNAL_SERVER_ERROR, 
+    RESPONSE_STATUS_CODE_AUTHORIZATION_ERROR} = require("../../constants/global.constants")
 const { AUTH_MESSAGES } = require("../../controller-messages/auth.messages")
 const { comparePasswordHash } = require("../../helpers/fn")
 const User = require("../../schema/user.schema")
 const authService = require("../../services/auth.service")
 const { addLogInToken } = require("../user-controller/user.controller")
+const { t } = require("../../helpers/i18n")
 
 // login
 
@@ -18,6 +20,17 @@ const login = async (req, res) => {
         const user = await User.findOne({
             email: { $regex: email, $options: "i" },
         })
+        if (!user) {
+            const responsePayload = {
+                status: RESPONSE_STATUS_CODE_AUTHORIZATION_ERROR,
+                message: req.t("LOGIN_FAILED"),
+                data: null,
+                error: null,
+            };
+            return res
+                .status(RESPONSE_STATUS_CODE_AUTHORIZATION_ERROR)
+                .json(responsePayload);
+        }
         if (user) {
             if (user.password !== null) {
                 const passwordHash = user.password
@@ -38,7 +51,7 @@ const login = async (req, res) => {
                     await User.findOneAndUpdate({ email: email }, { last_login: new Date() });
                     const responsePayload = {
                         status: RESPONSE_PAYLOAD_STATUS_SUCCESS,
-                        message: AUTH_MESSAGES.LOGIN_SUCCESSFUL,
+                        message: req.t("LOGIN_SUCCESSFUL"),
                         data: { token: token, userObj },
                         error: null,
                     };
@@ -47,9 +60,9 @@ const login = async (req, res) => {
                 else {
                     const responsePayload = {
                         status: RESPONSE_PAYLOAD_STATUS_ERROR,
-                        message: AUTH_MESSAGES.INVALID_CREDENTIALS,
+                        message: req.t("INVALID_CREDENTIALS"),
                         data: null,
-                        error: AUTH_MESSAGES.INVALID_CREDENTIALS,
+                        error: req.t("INVALID_CREDENTIALS"),
                     };
                     return res.status(RESPONSE_STATUS_CODE_NOT_FOUND).json(responsePayload);
                 }
