@@ -10,6 +10,7 @@ const {
 } = require("../../constants/global.constants");
 const { USER_MESSAGES } = require('../../controller-messages/user.messages');
 const { forgotPasswordMailer, loginMassageMailer } = require('../../services/mailer/login.forgot.mailer');
+const { t } = require("../../helpers/i18n")
 
 // add login token
 
@@ -75,7 +76,7 @@ const register = async (req, res) => {
         if (addUser) {
             const responsePayload = {
                 status: RESPONSE_PAYLOAD_STATUS_SUCCESS,
-                message: USER_MESSAGES.USERS_ADDED,
+                message: req.t("USERS_ADDED"),
                 data: addUser,
                 error: null
             }
@@ -86,7 +87,7 @@ const register = async (req, res) => {
                 status: RESPONSE_PAYLOAD_STATUS_ERROR,
                 message: null,
                 data: null,
-                error: USER_MESSAGES.USERS_NOT_ADDED,
+                error: req.t("USERS_NOT_ADDED"),
             }
             return res.status(RESPONSE_STATUS_CODE_NOT_FOUND).json(responsePayload)
         }

@@ -4,12 +4,14 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const { allRouter } = require('./routes');
+const { i18next, middleware } = require("./helpers/i18next");
+
 const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
-
+app.use(middleware.handle(i18next));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

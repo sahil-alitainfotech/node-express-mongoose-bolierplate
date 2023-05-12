@@ -2,6 +2,7 @@ const { RESPONSE_PAYLOAD_STATUS_SUCCESS, RESPONSE_STATUS_CODE_OK, RESPONSE_PAYLO
 const { AUTH_MESSAGES } = require("../../controller-messages/auth.messages");
 const User = require("../../schema/user.schema");
 const bcrypt = require('bcrypt')
+const { t } = require("../../helpers/i18n")
 
 // reset password
 
@@ -20,7 +21,7 @@ const resetPassword = async (req, res) => {
         if (user) {
             const responsePayload = {
                 status: RESPONSE_PAYLOAD_STATUS_SUCCESS,
-                message: AUTH_MESSAGES.PASSWORD_RESET_SUCCESSFULLY,
+                message: req.t("PASSWORD_RESET_SUCCESSFULLY"),
                 data: null,
                 error: null,
             };
@@ -29,9 +30,9 @@ const resetPassword = async (req, res) => {
         else {
             const responsePayload = {
                 status: RESPONSE_PAYLOAD_STATUS_ERROR,
-                message: AUTH_MESSAGES.TOKEN_INVALID,
+                message: req.t("TOKEN_INVALID"),
                 data: null,
-                error: AUTH_MESSAGES.TOKEN_INVALID,
+                error: req.t("TOKEN_INVALID"),
             };
             return res.status(RESPONSE_STATUS_CODE_NOT_FOUND).json(responsePayload);
         }
