@@ -52,5 +52,6 @@
     "FIRST_NAME_ALREADY_EXISTS": "खाता दिया गया पहला नाम के साथ बनाया गया है",
     "LAST_NAME_ALREADY_EXISTS": "खाता अंतिम नाम के साथ बनाया गया है",
     "EMAIL_ALREADY_EXISTS": "खाता दिए गए ईमेल के साथ बनाया गया है",
-    "TOKEN_REQUIRED": "कृपया मान्य टोकन दर्ज करें"
+    "TOKEN_REQUIRED": "कृपया मान्य टोकन दर्ज करें",
+    "TOKEN_INVALID": "टोकन अमान्य है"
 }

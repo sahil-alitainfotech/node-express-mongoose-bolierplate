@@ -49,5 +49,6 @@
   "EMAIL_INVALID": "email invalid",
   "PASSWORD_REQUIRED": "password  required",
   "PASSWORD_TYPE_IN_VALID": "password type invalid",
-  "TOKEN_REQUIRED": "Please enter the valid token"
+  "TOKEN_REQUIRED": "Please enter the valid token",
+  "TOKEN_INVALID": "Token is invalid"
 }

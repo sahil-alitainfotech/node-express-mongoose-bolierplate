@@ -52,5 +52,6 @@
   "FIRST_NAME_ALREADY_EXISTS": "The account has been created with given first name",
   "LAST_NAME_ALREADY_EXISTS": "The account has been created with given last name",
   "EMAIL_ALREADY_EXISTS": "The account has been created with given email",
-  "TOKEN_REQUIRED": "Please enter the valid token"
+  "TOKEN_REQUIRED": "Please enter the valid token",
+  "TOKEN_INVALID":"Token is invalid"
 }

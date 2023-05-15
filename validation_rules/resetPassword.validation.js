@@ -1,6 +1,12 @@
 const { checkSchema } = require("express-validator");
+const { languages } = require("../translate/languages.validation");
 
 const resetPasswordValidationRules = () => {
+
+  const getErrorMessage = (language, key) => {
+    return languages[language]?.[key] || languages.en[key];
+  };
+
   return checkSchema({
     reset_password_token: {
       notEmpty: {
