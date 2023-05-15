@@ -1,21 +1,28 @@
 const { checkSchema } = require("express-validator");
-const { AUTH_MESSAGES } = require("../controller-messages/auth.messages");
-const { t } = require("i18next");
 
 const resetPasswordValidationRules = () => {
   return checkSchema({
     reset_password_token: {
       notEmpty: {
-        errorMessage: t("TOKEN_REQUIRED","en"),
+        errorMessage: (value, { req }) => {
+          const language = req.headers['testlanguage'] || "en";
+          return getErrorMessage(language, "TOKEN_REQUIRED");
+        },
       },
     },
     new_password: {
       notEmpty: {
-        errorMessage: t("PASSWORD_ERROR_EMPTY","en"),
+        errorMessage: (value, { req }) => {
+          const language = req.headers['testlanguage'] || "en";
+          return getErrorMessage(language, "PASSWORD_REQUIRED");
+        },
       },
       matches: {
         options: [/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,15}$/],
-        errorMessage: AUTH_MESSAGES.IN_VALID_PASSWORD_TYPE,
+        errorMessage: (value, { req }) => {
+          const language = req.headers['testlanguage'] || "en";
+          return getErrorMessage(language, "PASSWORD_TYPE_IN_VALID");
+        }
       },
     },
   });

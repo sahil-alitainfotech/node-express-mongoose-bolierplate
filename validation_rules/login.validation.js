@@ -1,24 +1,38 @@
 const { checkSchema } = require("express-validator");
-const { AUTH_MESSAGES } = require("../controller-messages/auth.messages");
-const { t } = require("i18next");
+const { languages } = require("../translate/languages.validation");
 
 const loginValidationRules = () => {
+
+  const getErrorMessage = (language, key) => {
+    return languages[language]?.[key] || languages.en[key];
+  };
+
   return checkSchema({
-    email: {
-      notEmpty: {
-        errorMessage: t("EMAIL_ERROR_EMPTY","en"),
+    notEmpty: {
+        errorMessage: (value, { req }) => {
+          const language = req.headers['testlanguage'] || "en";
+          return getErrorMessage(language, "EMAIL_REQUIRED");
+        },
       },
       isEmail: {
-        errorMessage: t("EMAIL_ERROR_INVALID","en"),
+        errorMessage: (value, { req }) => {
+          const language = req.headers['testlanguage'] || "en";
+          return getErrorMessage(language, "EMAIL_INVALID");
+        },
       },
-    },
     password: {
       notEmpty: {
-        errorMessage: t("PASSWORD_ERROR_EMPTY","en"),
+        errorMessage: (value, { req }) => {
+          const language = req.headers['testlanguage'] || "en";
+          return getErrorMessage(language, "PASSWORD_REQUIRED");
+        },
       },
-      isLength: {
-        errorMessage: t("PASSWORD_LENGTH","en"),
-        options: { min: 6, max: 15 },
+      matches: {
+        options: [/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,15}$/],
+        errorMessage: (value, { req }) => {
+          const language = req.headers['testlanguage'] || "en";
+          return getErrorMessage(language, "PASSWORD_TYPE_IN_VALID");
+        }
       },
     },
   });

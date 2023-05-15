@@ -1,15 +1,23 @@
 const { checkSchema } = require("express-validator");
-const { AUTH_MESSAGES } = require("../controller-messages/auth.messages");
-const {t} = require("../helpers/i18n")
+const { languages } = require("../translate/languages.validation");
 
 const forgotPasswordValidationRules = () => {
+
+  const getErrorMessage = (language, key) => {
+    return languages[language]?.[key] || languages.en[key];
+  };
+
   return checkSchema({
-    email: {
-      notEmpty: {
-        errorMessage: t("EMAIL_ERROR_EMPTY","en"),
+    notEmpty: {
+      errorMessage: (value, { req }) => {
+        const language = req.headers['testlanguage'] || "en";
+        return getErrorMessage(language, "EMAIL_REQUIRED");
       },
-      isEmail: {
-        errorMessage: t("EMAIL_ERROR_INVALID","en"),
+    },
+    isEmail: {
+      errorMessage: (value, { req }) => {
+        const language = req.headers['testlanguage'] || "en";
+        return getErrorMessage(language, "EMAIL_INVALID");
       },
     },
   });
