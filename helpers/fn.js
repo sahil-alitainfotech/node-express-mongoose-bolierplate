@@ -1,5 +1,6 @@
 const bcrypt = require("bcrypt");
-const nodemailer = require('nodemailer')
+const nodemailer = require('nodemailer');
+const { AUTH_USER_DETAILS } = require("../constants/global.constants");
 const saltRounds = process.env.SALT_ROUNDS;
 
 
@@ -42,7 +43,11 @@ const transporter = nodemailer.createTransport({
     },
 });
 
+const getCurrentLoginUser = async (req) => {
+    let userData = req[AUTH_USER_DETAILS];
+    let user = userData._id;
+    return user;
+};
 
 
-
-module.exports = { passwordHash, comparePasswordHash, transporter }
+module.exports = { passwordHash, comparePasswordHash, transporter, getCurrentLoginUser }

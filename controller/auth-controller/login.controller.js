@@ -3,7 +3,8 @@ const { RESPONSE_PAYLOAD_STATUS_SUCCESS,
     RESPONSE_PAYLOAD_STATUS_ERROR,
     RESPONSE_STATUS_CODE_NOT_FOUND,
     RESPONSE_STATUS_MESSAGE_INTERNAL_SERVER_ERROR,
-    RESPONSE_STATUS_CODE_INTERNAL_SERVER_ERROR } = require("../../constants/global.constants")
+    RESPONSE_STATUS_CODE_INTERNAL_SERVER_ERROR,
+    RESPONSE_STATUS_CODE_AUTHORIZATION_ERROR } = require("../../constants/global.constants")
 const { AUTH_MESSAGES } = require("../../controller-messages/auth.messages")
 const { comparePasswordHash } = require("../../helpers/fn")
 const User = require("../../schema/user.schema")
@@ -18,6 +19,17 @@ const login = async (req, res) => {
         const user = await User.findOne({
             email: { $regex: email, $options: "i" },
         })
+        if (!user) {
+            const responsePayload = {
+                status: RESPONSE_STATUS_CODE_AUTHORIZATION_ERROR,
+                message: AUTH_MESSAGES.LOGIN_FAILED,
+                data: null,
+                error: null,
+            };
+            return res
+                .status(RESPONSE_STATUS_CODE_AUTHORIZATION_ERROR)
+                .json(responsePayload);
+        }
         if (user) {
             if (user.password !== null) {
                 const passwordHash = user.password

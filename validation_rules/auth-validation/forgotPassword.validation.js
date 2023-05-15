@@ -1,5 +1,5 @@
 const { checkSchema } = require("express-validator");
-const { AUTH_MESSAGES } = require("../controller-messages/auth.messages");
+const { AUTH_MESSAGES } = require("../../controller-messages/auth.messages");
 
 const forgotPasswordValidationRules = () => {
   return checkSchema({

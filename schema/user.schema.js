@@ -48,6 +48,16 @@ const userSchema = mongoose.Schema(
             default: null,
             required: false,
         },
+        is_deleted: {
+            type: Boolean,
+            default: false,
+            required: false,
+        },
+        deleted_by: {
+            type: String,
+            default: null,
+            required: false,
+        }
     },
     {
         timestamps: true,

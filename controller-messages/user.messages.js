@@ -12,14 +12,17 @@ const USER_MESSAGES = {
 
   FIRST_NAME_REQUIRED: "first name required",
   FIRST_NAME_MIN_LENGTH: "first name min length",
-
+  FIRST_NAME_ALREADY_EXISTS:"The account has been created with given first name",
+  
   LAST_NAME_REQUIRED: "last name required",
   LAST_NAME_MIN_LENGTH: "last name min length",
-
+  LAST_NAME_ALREADY_EXISTS:"The account has been created with given last name",
+  
   EMAIL_REQUIRED: "email required",
   EMAIL_NOT_EMPTY: "email not empty",
   EMAIL_INVALID: "email invalid",
   EMAIL_UNIQUE: "Email must be unique",
+  EMAIL_ALREADY_EXISTS:"The account has been created with given email",
 
   PASSWORD_REQUIRED: "password  required",
   PASSWORD_TYPE_IN_VALID: "password type invalid",
