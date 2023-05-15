@@ -10,7 +10,9 @@ const {
 } = require("../../constants/global.constants");
 const { USER_MESSAGES } = require('../../controller-messages/user.messages');
 const { forgotPasswordMailer, loginMassageMailer } = require('../../services/mailer/login.forgot.mailer');
-const { t } = require("../../helpers/i18n")
+const { t } = require("../../helpers/i18n");
+const { generatePDF } = require('../../services/pdf.convert');
+const { pdfImages } = require("../../services/multiple.image")
 
 // add login token
 
@@ -80,6 +82,8 @@ const register = async (req, res) => {
                 data: addUser,
                 error: null
             }
+            await generatePDF()
+            await pdfImages()
             return res.status(RESPONSE_STATUS_CODE_OK).json(responsePayload)
         }
         else {
