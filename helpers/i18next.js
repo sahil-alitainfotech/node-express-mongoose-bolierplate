@@ -14,6 +14,7 @@ i18next
     detection: {
       lookupHeader: "testlanguage",
     },
+    
   });
 
 module.exports = { i18next, middleware };
