@@ -8,18 +8,20 @@ const loginValidationRules = () => {
   };
 
   return checkSchema({
-    notEmpty: {
-        errorMessage: (value, { req }) => {
-          const language = req.headers['testlanguage'] || "en";
-          return getErrorMessage(language, "EMAIL_REQUIRED");
+    email: {
+      notEmpty: {
+          errorMessage: (value, { req }) => {
+            const language = req.headers['testlanguage'] || "en";
+            return getErrorMessage(language, "EMAIL_REQUIRED");
+          },
         },
-      },
-      isEmail: {
-        errorMessage: (value, { req }) => {
-          const language = req.headers['testlanguage'] || "en";
-          return getErrorMessage(language, "EMAIL_INVALID");
+        isEmail: {
+          errorMessage: (value, { req }) => {
+            const language = req.headers['testlanguage'] || "en";
+            return getErrorMessage(language, "EMAIL_INVALID");
+          },
         },
-      },
+    },
     password: {
       notEmpty: {
         errorMessage: (value, { req }) => {
